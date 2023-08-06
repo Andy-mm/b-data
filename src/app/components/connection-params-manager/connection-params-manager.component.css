@@ -1,0 +1,6 @@
+:host {
+  display: inline-flex;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 12px;
+}

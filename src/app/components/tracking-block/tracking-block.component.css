@@ -1,0 +1,16 @@
+:host {
+  display: inline-flex;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+input.ng-invalid.ng-dirty {
+  border: 1px solid red;
+}
+.tracking {
+  display: flex;
+  flex-direction: column;
+
+
+}

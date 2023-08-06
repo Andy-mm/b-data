@@ -1,0 +1,13 @@
+<div class="manager__container">
+  <div class="time-manager">
+    The timer interval (ms):
+    <input type="number" [(ngModel)]="timerIntervalSize">
+  </div>
+
+  <div class="size-manager">
+    The size of the data array:
+    <input type="number" [(ngModel)]="dataArraySize">
+  </div>
+
+  <button (click)="submitOptions()">Submit options</button>
+</div>
