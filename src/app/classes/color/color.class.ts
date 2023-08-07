@@ -1,12 +1,16 @@
+/** The color class */
 export abstract class Color {
-  // abstract protected initialValue: string;
-  getRgbaString(alpha: number): string {
-    if (alpha > 1) alpha = 1;
+  initialValue: string;
+  hexString: string;
+  rgbString: string;
+  rgb: [number, number, number];
 
-    const [red, green, blue] = this.getRgb();
-
-    return `rgba(${red}, ${green}, ${blue}, ${alpha})`
-  };
+  protected constructor(value: string) {
+    this.initialValue = value;
+    this.hexString = this.getHexString();
+    this.rgbString = this.getRgbString();
+    this.rgb = this.getRgb();
+  }
 
   getRgbString(): string {
     const [red, green, blue] = this.getRgb();
@@ -15,7 +19,7 @@ export abstract class Color {
   };
 
   getRgb(): [number, number, number] {
-    const [red, green, blue] = this.getHexValue()
+    const [red, green, blue] = this.getHexString()
       .replace(/#/, '')
       .match(/.{1,2}/g)
       ?.map(colorItem => parseInt(colorItem, 16)) ?? [0, 0, 0];
@@ -23,5 +27,13 @@ export abstract class Color {
     return [red, green, blue];
   };
 
-  abstract getHexValue(): string;
+  abstract getHexString(): string;
+
+  static rgba(rgb: [number, number, number], alpha: number ): string {
+    if (alpha > 1) alpha = 1;
+
+    const [red, green, blue] = rgb;
+
+    return `rgba(${red}, ${green}, ${blue}, ${alpha})`
+  }
 }

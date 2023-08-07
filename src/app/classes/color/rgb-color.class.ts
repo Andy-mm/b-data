@@ -2,16 +2,13 @@ import { Color } from './color.class';
 
 export type RgbColorType = string;
 
+/** The color class in rgb format */
 export class RgbColor extends Color {
-  private readonly initialValue: RgbColorType;
-
-
   constructor(value: RgbColorType) {
-    super();
-    this.initialValue = value;
+    super(value);
   }
 
-  getHexValue(): string {
+  getHexString(): string {
     const hexValue = this.initialValue
       .replace(/[^\d,]/g, '')
       .split(',')
@@ -19,6 +16,11 @@ export class RgbColor extends Color {
       .join();
 
     return `#${hexValue}`;
+  }
+
+  /** Checks if it is a color in rgb format */
+  static isRgb(color: string): color is RgbColorType {
+    return color.search((/rgba?\(.+?\)/gm)) > 0;
   }
 }
 

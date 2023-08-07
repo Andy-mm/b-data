@@ -8,11 +8,14 @@ import { DataApiService } from '../model/interfaces/data-api-service.interface';
 @Injectable()
 export class MockDataApiService implements DataApiService {
   private pseudoSocket = new Subject<WsMessage>();
+
   private wsConnectionClose = new Subject<void>();
 
-  private timerSize: number = 1000;
-  private dataSize: number = 10;
-  private additionalIds: string[] = [];
+  private connectionOptions: ConnectionParams = {
+    timerInterval: 3000,
+    dataArraySize: 10,
+    additionalIds: []
+  }
 
   private timer?: NodeJS.Timer;
 
@@ -32,9 +35,7 @@ export class MockDataApiService implements DataApiService {
   }
 
   send(connectionParams: Partial<ConnectionParams>): void {
-    if (connectionParams.timerInterval) this.timerSize = connectionParams.timerInterval;
-    if (connectionParams.dataArraySize) this.dataSize = connectionParams.dataArraySize;
-    if (connectionParams.additionalIds) this.additionalIds = connectionParams.additionalIds;
+    this.connectionOptions = { ...this.connectionOptions, ...connectionParams }
   }
 
   disconnect(): void {
@@ -47,15 +48,16 @@ export class MockDataApiService implements DataApiService {
       () => {
         this.pseudoSocket.next({
           data: {
-            records: this.dataGeneratorService.generateData(this.dataSize),
-            trackedRecords: this.dataGeneratorService.generateData(this.additionalIds.length)
-              .map((datum, index) => ({ ...datum, id: this.additionalIds[index] }))
+            records: this.dataGeneratorService.generateData(this.connectionOptions.dataArraySize),
+            trackedRecords: this.dataGeneratorService.generateData(this.connectionOptions.additionalIds.length)
+              .map((datum, index) => ({ ...datum, id: this.connectionOptions.additionalIds[index] }))
           },
           status: 'success'
         });
+
         this.startGenerateData();
       },
-      this.timerSize
+      this.connectionOptions.timerInterval
     )
   }
 }

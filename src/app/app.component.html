@@ -1,7 +1,13 @@
-<app-connection-params-manager (optionsChanged)="sendMessage($event)"></app-connection-params-manager>
+<div class="card">
 
-<app-tracking-block (selectedIdsChanged)="sendMessage({ additionalIds: $event })"></app-tracking-block>
+  <div class="card__table" *ngIf="data$ | async as data">
+      <app-data-table [rows]="data"></app-data-table>
+  </div>
 
-<ng-container *ngIf="data$ | async as data">
-  <app-data-table [rows]="data"></app-data-table>
-</ng-container>
+  <div class="card__options">
+    <app-connection-options-manager (optionsChanged)="changeOptions($event)"></app-connection-options-manager>
+    <app-tracking-block (selectedIdsChanged)="changeOptions({ additionalIds: $event })"></app-tracking-block>
+  </div>
+
+</div>
+

@@ -10,7 +10,7 @@ export class MockDataGeneratorService {
     private readonly builder: DataBuilderService
   ) {}
 
-  /** Gives a randomly generated data */
+  /** Gives randomly generated data */
   generateData(size: number): DatumDto[] {
     const result: DatumDto[] = [];
 

@@ -3,19 +3,12 @@ import stc from 'string-to-color';
 
 export type StringColorType = string;
 
-export class HexColor extends Color {
-  private readonly initialValue: StringColorType;
-
-  get forcss(): string {
-    return this.getHexValue();
-  }
-
+export class StringColor extends Color {
   constructor(value: StringColorType) {
-    super();
-    this.initialValue = value;
+    super(value);
   }
 
-  getHexValue(): string {
+  getHexString(): string {
     return stc(this.initialValue);
   }
 }

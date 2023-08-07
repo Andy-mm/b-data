@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgForOf } from '@angular/common';
-import { Datum } from '../../classes/datum.class';
 
 interface SelectedIdsForm {
   selectedIds: FormArray<FormControl<string | null>>
 }
 
+/** The component to control tracked data */
 @Component({
   selector: 'app-tracking-block',
   templateUrl: './tracking-block.component.html',
-  styleUrls: ['./tracking-block.component.css'],
+  styleUrls: ['./tracking-block.component.scss'],
   standalone: true,
   imports: [ReactiveFormsModule, NgForOf],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -43,11 +43,8 @@ export class TrackingBlockComponent {
 
   /** Removes the field from "Selected ids" section */
   public removeIdField(index: number): void {
+    console.log(index)
     this.formGroup.controls.selectedIds.removeAt(index);
-  }
-
-  public trackByFn(index: number): string {
-    return `${index}`;
   }
 
   private getIdControl(): FormControl<string | null> {

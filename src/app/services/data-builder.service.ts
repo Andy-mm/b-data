@@ -6,7 +6,7 @@ enum colorTypes {
   'string'
 }
 
-/** The Data builder */
+/** The data builder */
 @Injectable({
   providedIn: 'root'
 })
@@ -43,9 +43,9 @@ export class DataBuilderService {
         hex: this.getRandomHexColor,
         string: this.getRandomStringColor
       }
+      const color = colorGetters[randomColorType].bind(this)();
 
-      return this.getRandomHexColor();
-      // colorGetters[randomColorType].bind(this)();
+      return color;
   }
 
   /** Gives a random color in the rgb format */
@@ -65,7 +65,7 @@ export class DataBuilderService {
   /** Gives a random color in the string format */
   private getRandomStringColor(): string {
     const colors = ["Blue ", "Green", "Red", "Orange", "Violet", "Indigo", "Yellow "];
-    const randomColorIndex = this.getRandomNumber(0, colors.length);
+    const randomColorIndex = this.getRandomNumber(0, colors.length - 1);
 
     return colors[randomColorIndex];
   }

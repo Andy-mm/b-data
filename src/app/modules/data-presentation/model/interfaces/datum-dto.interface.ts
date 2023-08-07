@@ -1,4 +1,3 @@
-/** The interface of datum DTO */
 export interface DatumDto {
   id: string;
   int: number;

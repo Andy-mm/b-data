@@ -5,12 +5,8 @@
   padding: 12px;
 }
 
-input.ng-invalid.ng-dirty {
-  border: 1px solid red;
-}
-.tracking {
+.manager {
   display: flex;
   flex-direction: column;
-
-
+  gap: 12px;
 }
